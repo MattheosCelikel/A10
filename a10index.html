@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A10. Create and Display Cookies - Ethics</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 50px;
+    }
+    input {
+      padding: 10px;
+      font-size: 16px;
+      margin: 10px 0;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .output {
+      margin-top: 20px;
+      font-size: 18px;
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <h1>Cookie Website!</h1>
+  <p>Enter your name in the space below to make (not bake) a cookie with your name:</p>
+  <input type="text" id="nameInput" placeholder="Enter your name">
+  <button onclick="setCookie()">Set Cookie</button>
+  <div class="output" id="cookieDisplay"></div>
+
+  <script>
+    function setCookie() {
+      const name = document.getElementById('nameInput').value;
+      if (name) {
+        const expiryDate = new Date();
+        expiryDate.setTime(expiryDate.getTime() + (7 * 24 * 60 * 60 * 1000)); // 7 days
+        document.cookie = `username=${name}; expires=${expiryDate.toUTCString()}; path=/`;
+        displayCookie();
+        alert('Cookie has been set!');
+      } else {
+        alert('Please enter a name!');
+      }
+    }
+
+    function getCookie(name) {
+      const cookies = document.cookie.split(';');
+      for (let cookie of cookies) {
+        cookie = cookie.trim();
+        if (cookie.startsWith(`${name}=`)) {
+          return cookie.substring(name.length + 1);
+        }
+      }
+      return null;
+    }
+
+    function displayCookie() {
+      const username = getCookie('username');
+      const displayDiv = document.getElementById('cookieDisplay');
+      if (username) {
+        displayDiv.textContent = `Welcome back, ${username}!`;
+      } else {
+        displayDiv.textContent = 'No cookie found. Please set your name.';
+      }
+    }
+
+    window.onload = displayCookie;
+  </script>
+</body>
+</html>
