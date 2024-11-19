@@ -36,40 +36,38 @@
 
   <script>
     function setCookie() {
-      const name = document.getElementById('nameInput').value;
-      if (name) {
-        const expiryDate = new Date();
-        expiryDate.setTime(expiryDate.getTime() + (7 * 24 * 60 * 60 * 1000)); // 7 days
-        document.cookie = `username=${name}; expires=${expiryDate.toUTCString()}; path=/`;
-        displayCookie();
-        alert('Cookie has been set!');
-      } else {
-        alert('Please enter a name!');
-      }
+        const name = document.getElementById('nameInput').value;
+        if (name) {
+            document.cookie = `username=${name}; path=/`;
+            displayCookie();
+            alert('Cookie has been set!');
+        } else {
+            alert('Please enter a name!');
+        }
     }
 
     function getCookie(name) {
-      const cookies = document.cookie.split(';');
-      for (let cookie of cookies) {
-        cookie = cookie.trim();
-        if (cookie.startsWith(`${name}=`)) {
-          return cookie.substring(name.length + 1);
+        const cookies = document.cookie.split(';');
+        for (let cookie of cookies) {
+            cookie = cookie.trim();
+            if (cookie.startsWith(`${name}=`)) {
+                return cookie.substring(name.length + 1);
+            }
         }
-      }
-      return null;
+        return null;
     }
 
     function displayCookie() {
-      const username = getCookie('username');
-      const displayDiv = document.getElementById('cookieDisplay');
-      if (username) {
-        displayDiv.textContent = `Welcome back, ${username}!`;
-      } else {
-        displayDiv.textContent = 'No cookie found. Please set your name.';
-      }
+        const username = getCookie('username');
+        const displayDiv = document.getElementById('cookieDisplay');
+        if (username) {
+            displayDiv.textContent = `Welcome back, ${username}!`;
+        } else {
+            displayDiv.textContent = 'No cookie found. Please set your name.';
+        }
     }
 
     window.onload = displayCookie;
-  </script>
+</script>
 </body>
 </html>
